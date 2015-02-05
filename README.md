@@ -27,19 +27,14 @@ npm install
 ####文件结构
 
 静态页面不需要太过复杂的文件结构，最终的发布版本代码和相关文件全部在`build`文件夹中。为了后续维护方便，请适当做好相应的注释和文档。
-
 ````
 seawayProject/
 |
 |-----src //dev模式下css、js、images、HTML文件等集合（即使开放源码）
-|           |-css
+|           |-style
+|              |- iconfont 开放中雪碧字体
 |           |-js
 |              |- lib 开放中所依赖的第三方插件，可以自行添加删除
-|           |-images
-|           |-html文件
-|-----dist //最终生成的纯净文件夹 （此文件夹，开放完成后运行BUILD的时候产生）
-|           |-css
-|           |-js
 |           |-images
 |           |-html文件
 |----- .node_modules / // npm安装依赖包所在文件夹
@@ -48,6 +43,38 @@ seawayProject/
 |-----Gruntfiles.js // grunt配置文件 建议先阅读配置
 |-----package.json //g runt依赖包配置文件
 
+````
+####发布后文件结构
+
+执行
+````
+grunt build
+
+````
+生成
+````
+seawayProject/
+|
+|-----src //dev模式下css、js、images、HTML文件等集合（即使开放源码）
+|           |-style
+|              |- iconfont 开放中雪碧字体
+|           |-js
+|              |- lib 开放中所依赖的第三方插件，可以自行添加删除
+|           |-images
+|           |-html文件
+|-----dist //最终生成的纯净文件夹 （此文件夹，开放完成后运行BUILD的时候产生）
+|           |-style
+|              |- iconfont 开放中雪碧字体
+|           |-js
+|              |- lib 开放中所依赖的第三方插件，可以自行添加删除
+|           |-images
+|           |-html文件
+|----- .node_modules / // npm安装依赖包所在文件夹
+|
+|-----.git // 默认使用git，配置好gitignore文件
+|-----Gruntfiles.js // grunt配置文件 建议先阅读配置
+|-----package.json //g runt依赖包配置文件
+|-----seawayProject-YYYY-MM-DD.ZIP //压缩上线文件
 ````
 ####初始化
 
@@ -90,6 +117,7 @@ grunt
 	<link rel="stylesheet"  href="style/base.css">
     <link rel="stylesheet"  href="style/style.css">
 	<!-- endbuild -->
+	<script src="/js/lib/zepto.js"></script>
 	<!-- build:js js/seawayProject.min.js -->
     <script src="/js/base.js"></script>
     <script src="/js/main.js"></script>
@@ -105,7 +133,7 @@ grunt
 grunt build
 
 ````
-会生成一个压缩包'项目名称'+'YYYY-MM-DD'.ZIP压缩包，然后根据个人需要，返送给程序，或者上线、、、、
+会生成一个压缩包'项目名称'+'YYYY-MM-DD'.ZIP压缩包，然后根据个人需要，发送给程序，或者上线、、、、
 
 
 #### License

@@ -42,6 +42,7 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 		},
 		clean: {
 			pre: ['dist/'], //删除掉先前的开发文件
+			next: ['src/style/<%= pkg.name %>.css','src/js/<%= pkg.name %>.js']
 			//post: ['<%= archive_name %>*.zip'] //先删除先前生成的压缩包
 		},
 		htmlhint: { //静态扫描组件
@@ -93,7 +94,7 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 			},
 			build: {
 				files: {
-					'dist/js/<%= pkg.name %>.min.js': ['dist/js/<%= pkg.name %>.js']
+					'dist/js/<%= pkg.name %>.min.js': ['src/js/<%= pkg.name %>.js']
 				}
 			}
 		},
@@ -108,7 +109,7 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 			},
 			build: {
 				files: {
-					'dist/style/<%= pkg.name %>.min.css': ['dist/style/<%= pkg.name %>.css'] // 合并并压缩 path/to 目录下(包含子目录)的所有css文件
+					'dist/style/<%= pkg.name %>.min.css': ['src/style/<%= pkg.name %>.css'] // 合并并压缩 path/to 目录下(包含子目录)的所有css文件
 				}
 			}
 			// },
@@ -133,11 +134,11 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 			},
 			js: {
 				src: ['src/js/*.js', '!src/js/lib/*.js'],
-				dest: 'dist/js/<%= pkg.name %>.js'
+				dest: 'src/js/<%= pkg.name %>.js'
 			},
 			css: {
 				src: ['src/style/*.css'],
-				dest: 'dist/style/<%= pkg.name %>.css'
+				dest: 'src/style/<%= pkg.name %>.css'
 			}
 		},
 		watch: { // 通过watch任务，来监听文件是否有更改
@@ -173,6 +174,13 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 					cwd: 'src/js/lib/',
 					src: '**',
 					dest: 'dist/js/lib/',
+					flatten: true,
+					filter: 'isFile'
+				},{
+					expand: true,
+					cwd: 'src/style/iconfont/',
+					src: '**',
+					dest: 'dist/style/iconfont/',
 					flatten: true,
 					filter: 'isFile'
 				}]
@@ -211,12 +219,8 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 
 	grunt.registerTask('live', ['connect', 'watch']);
 
-	grunt.registerTask('default', ['clean', 'copy:build','concat', 'cssmin', 'uglify', 'imagemin', "usemin"]);
+	grunt.registerTask('default', ['clean', 'copy:build','concat', 'cssmin', 'uglify', 'imagemin', "usemin",'clean:next']);
 
-	grunt.registerTask('build', ['clean', 'copy:build','concat', 'cssmin', 'uglify', 'imagemin', "usemin",'compress']);
+	grunt.registerTask('build', ['clean', 'copy:build','concat', 'cssmin', 'uglify', 'imagemin', "usemin",'clean:next','compress']);
 
-	// grunt.registerTask('wc', ['watch:html', 'watch:js']);
-
-	// grunt.registerTask('default', []);
-	// grunt.registerTask('buildcss', ['sass', 'cssc', 'cssmin']);
 };
