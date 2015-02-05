@@ -210,7 +210,11 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 	});
 
 	grunt.registerTask('live', ['connect', 'watch']);
+
+	grunt.registerTask('default', ['clean', 'copy:build','concat', 'cssmin', 'uglify', 'imagemin', "usemin"]);
+
 	grunt.registerTask('build', ['clean', 'copy:build','concat', 'cssmin', 'uglify', 'imagemin', "usemin",'compress']);
+
 	// grunt.registerTask('wc', ['watch:html', 'watch:js']);
 
 	// grunt.registerTask('default', []);
