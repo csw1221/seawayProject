@@ -123,6 +123,7 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 		},
 		concat: { //合并JS/CSS
 			options: {
+				separator: ';',
 				stripBanners: true,
 				banner: '/** \n' +
 					'* Project : <%= pkg.name %> \n' +
@@ -132,12 +133,8 @@ module.exports = function(grunt) { //wrapper函数（包装函数）
 					'*/ \n'
 			},
 			js: {
-				options:{
-					separator: ';',
-				},
-				files:{
-                    'src/js/<%= pkg.name %>.js':['src/js/*.js', '!src/js/lib/*.js']
-				}
+				src: ['src/js/*.js', '!src/js/lib/*.js'],
+				dest: 'src/js/<%= pkg.name %>.js'
 			},
 			css: {
 				src: ['src/style/*.css'],
